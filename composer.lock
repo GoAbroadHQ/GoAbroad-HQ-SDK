@@ -1,0 +1,108 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "db5015500645b266fa1fa3918287f014",
+    "packages": [
+        {
+            "name": "mjohnson/type-converter",
+            "version": "2.0.0",
+            "target-dir": "mjohnson/utility",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/milesj/type-converter.git",
+                "reference": "7ea0fc8e590498cd2c838d8288e6452719263291"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/milesj/type-converter/zipball/7ea0fc8e590498cd2c838d8288e6452719263291",
+                "reference": "7ea0fc8e590498cd2c838d8288e6452719263291",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "mjohnson\\utility": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miles Johnson",
+                    "homepage": "http://milesj.me"
+                }
+            ],
+            "description": "Converts one resource to another (XML, JSON, Object, Array, Serialization).",
+            "homepage": "http://milesj.me/code/php/type-converter",
+            "keywords": [
+                "converter",
+                "type"
+            ],
+            "time": "2012-11-21 04:16:47"
+        },
+        {
+            "name": "symfony/serializer",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Serializer",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Serializer.git",
+                "reference": "af4c6460e9c4e13f78fef169417f7ca6ab5350ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Serializer/zipball/af4c6460e9c4e13f78fef169417f7ca6ab5350ee",
+                "reference": "af4c6460e9c4e13f78fef169417f7ca6ab5350ee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Serializer\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Serializer Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-10-20 09:20:49"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "symfony/serializer": 20
+    },
+    "prefer-stable": false,
+    "platform": [],
+    "platform-dev": []
+}

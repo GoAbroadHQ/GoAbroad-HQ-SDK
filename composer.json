@@ -1,0 +1,21 @@
+{
+	"name": "sebmak/goabroadhq-sdk",
+	"description": "SDK for accessing GoAbroadHQ.",
+	"keywords": ["sdk", "goabroadhq"],
+	"license": "MIT",
+  "authors":[
+    {
+      "name":"Sebastian Makinson",
+      "email":"sebastian.makinson@goabroad.com",
+      "homepage":"http://www.techabroad.com",
+      "role":"Developer"
+    }
+  ],
+  "require": {
+    "symfony/serializer": "dev-master",
+    "mjohnson/type-converter": "2.0.0"
+  },
+  "autoload": {
+      "psr-4": {"GaHqSdk\\": "src/"}
+  }
+}
