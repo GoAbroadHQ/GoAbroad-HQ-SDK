@@ -12,7 +12,6 @@
     }
   ],
   "require": {
-    "symfony/serializer": "dev-master",
     "mjohnson/type-converter": "2.0.0"
   },
   "autoload": {
