@@ -114,6 +114,7 @@ class LeadCapture extends HqSdk{
   }
 
   public function submitLead($data){
+    // return $this->formatLead($data);
     return $this->post('LeadCapture',$this->formatLead($data));
   }
 

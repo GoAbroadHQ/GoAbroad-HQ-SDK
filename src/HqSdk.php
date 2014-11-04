@@ -82,40 +82,25 @@ abstract class HqSdk {
     }
 
     $data = array(
-      '@attributes'=>array(
-        'Operation'=>'LeadCaptureModel'
-      ),
-      'GAHQResponses'=>array(
-        'GAHQResponse'=>array(
-          '@attributes'=>array(
-            'Type'=>'CommitsNoExceptions'
-          )
-        )
-      ),
-      'Leads'=>array(
-        'Lead'=>array(
-          'Field'=>$leads
-        )
+      'Lead'=>array(
+        'Field'=>$leads
       )
     );
 
-    $xml = (string) Array2XML::createXML('GAHQAPIPost',$data)->saveXML();
+    $xml = (string) Array2XML::createXML('Leads',$data)->saveXML();
+    $xml = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $xml);
 
-    $fields = array(
-      'lead'=>urlencode($xml)
-    );
-
-    return $fields;
+    return array('leads'=>urlencode($xml));
   }
 
   protected function post($to,$fields){
-    $get = [
+    $get = array(
       'userName'=>$this->username,
       'password'=>$this->password
-    ];
+    );
 
     $headers = array(
-      "Content-type: text/xml;charset=\"utf-8\"",
+      "Content-type: application/x-www-form-urlencoded;charset=\"utf-8\"",
       "Accept: text/xml",
       "Cache-Control: no-cache",
       "Pragma: no-cache"
@@ -127,15 +112,16 @@ abstract class HqSdk {
 
     //url-ify the data for the POST
     foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-    rtrim($fields_string, '&');
+    $fields_string = rtrim($fields_string, '&');
 
     //open connection
     $ch = curl_init();
 
     //set the url, number of POST vars, POST data
     curl_setopt($ch,CURLOPT_URL, $url);
-    curl_setopt($ch,CURLOPT_POST, count($fields));
+    curl_setopt($ch,CURLOPT_POST, true);
     curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     //execute post

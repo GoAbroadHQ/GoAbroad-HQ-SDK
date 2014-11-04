@@ -2,7 +2,6 @@
 
 return array(
   'fields'=>array(
-  //FieldName=>Required
     'FirstName'=>array(
       'required'=>true,
       'type'=>'text',
