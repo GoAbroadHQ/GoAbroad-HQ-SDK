@@ -6,7 +6,7 @@ use GaHqSdk\Array2XML;
 
 abstract class HqSdk {
 
-  const PROD_URL = 'http://23.253.92.209:85/API/GoAbroadHQ.svc';
+  const PROD_URL = 'http://23.253.92.209:84/API/GoAbroadHQ.svc';
   const TEST_URL = 'http://23.253.92.209:85/DEVAPI/GoAbroadHQ.svc';
 
   /*
@@ -50,10 +50,10 @@ abstract class HqSdk {
   }
 
   protected function get($to){
-    $get = [
+    $get = array(
       'userName'=>$this->username,
       'password'=>$this->password
-    ];
+    );
 
     // Open the file using the HTTP headers set above
     // 
