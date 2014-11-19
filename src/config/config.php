@@ -1,8 +1,8 @@
 <?php
 
 return array(
-  'env'=>'test',
-  //'env'=>'prod',
+  'env'=>'prod',
+  //'env'=>'test',
   'credentials'=>array(
     'username'=>'USERNAME',
     'password'=>'PASSWORD'

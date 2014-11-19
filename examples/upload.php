@@ -5,4 +5,3 @@
 
   header('Content-Type: text/xml');
   print_r($HQ->submitLead($_POST));
-?>

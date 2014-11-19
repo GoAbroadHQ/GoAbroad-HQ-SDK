@@ -103,7 +103,7 @@ abstract class HqSdk {
       "Content-type: application/x-www-form-urlencoded;charset=\"utf-8\"",
       "Accept: text/xml",
       "Cache-Control: no-cache",
-      "Pragma: no-cache"
+      "Pragma: no-cache",
     );
     //set POST variables
     $url = $this->environment.'/'.ucwords($to).'?'.urldecode(http_build_query($get));
@@ -121,6 +121,7 @@ abstract class HqSdk {
     curl_setopt($ch,CURLOPT_URL, $url);
     curl_setopt($ch,CURLOPT_POST, true);
     curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -131,13 +132,18 @@ abstract class HqSdk {
     curl_close($ch);
 
 
-    return $result;
+    // return $result;
 
     // Open the file using the HTTP headers set above
     // 
     $file = utf8_encode ( (string) $result );
 
     $file = $this->toObject(TypeConverter::xmlToArray($file, TypeConverter::XML_MERGE));
+    
+    if($file->GAHQResponses->TotalExceptions > 0){
+      throw new \Exception('There was an error submitting your request. Please check your data before trying again.');
+    }
+
     return $file;
 
   }
