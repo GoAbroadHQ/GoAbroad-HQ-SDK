@@ -43,7 +43,7 @@ class LeadCapture extends HqSdk{
   }
 
   protected function generateOptions($array,$selected){
-    $return = '';
+    $return = '<option value=""> -- Select -- </option>';
     if(is_object($array[0])){
       foreach($array as $value){
         $return.='<option value="'.$value['Id'].'" '.(($value['Id']==$selected) ? 'selected="selected"' : null).'>'.$value['value'].'</option>';
