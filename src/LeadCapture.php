@@ -7,9 +7,9 @@ class LeadCapture extends HqSdk{
   protected $config;
   protected $fields;
 
-  public function __construct($config1,$config2){
-    parent::__construct($config2);
-    $this->config = $config1;
+  public function __construct($config){
+    parent::__construct($config);
+    $this->config = require(__DIR__.'/config/defaults.php');
   }
 
   public function getReferences(){
@@ -25,13 +25,24 @@ class LeadCapture extends HqSdk{
     }
   }
 
-  protected function isRequired($config){
-    if(array_key_exists('required', $config)){
-      if($config['required']){
-        return 'required';
-      }
+  protected function isRequired($required,$config){
+    if($required==true || $config['required']==true){
+      return 'required';
     }
     return null;
+  }
+
+  public function getOption($field,$option){
+    return $this->config['fields'][$field][$option];
+  }
+
+  public function getFieldTypes(){
+    $array = array();
+
+    foreach ($this->config['fields'] as $key => $value) {
+      $array[$key]=$value['title'];
+    }
+    return $array;
   }
 
   protected function fieldOptions($options){
@@ -65,14 +76,17 @@ class LeadCapture extends HqSdk{
     return $this->generateOptions($this->getReferences()->config['reference'],$selected);
   }
 
-  public function renderTel($field,$options){
-    return $this->renderText($field,$options,'tel');
+  public function renderTel($field,$options,$required){
+    return $this->renderText($field,$options,'tel',$required);
   }
-  public function renderEmail($field,$options){
-    return $this->renderText($field,$options,'email');
+  public function renderEmail($field,$options,$required){
+    return $this->renderText($field,$options,'email',$required);
+  }
+  public function renderDate($field,$options,$required){
+    return $this->renderText($field,$options,'date',$required);
   }
 
-  public function renderText($field,$options,$type='text'){
+  public function renderText($field,$options,$type='text',$required=false){
     $config = $this->config['fields'][$field];
     if(array_key_exists('options', $config)){
       $options = $options + $config['options'];
@@ -80,10 +94,10 @@ class LeadCapture extends HqSdk{
     if(array_key_exists('default', $config) && !array_key_exists('value', $options)){
       $options['value']=$config['default'];
     }
-    return '<input type="'.$type.'" '.$this->fieldOptions($options).' '.$this->isRequired($config).'/>';
+    return '<input type="'.$type.'" '.$this->fieldOptions($options).' '.$this->isRequired($required,$config).'/>';
   }
 
-  public function renderTextArea($field,$options){
+  public function renderTextarea($field,$options,$required){
     $config = $this->config['fields'][$field];
     if(array_key_exists('options', $config)){
       $options = $options + $config['options'];
@@ -94,10 +108,10 @@ class LeadCapture extends HqSdk{
     if(!array_key_exists('selected', $options)){
       $options['value']=null;
     }
-    return '<textarea '.$this->fieldOptions($options).' '.$this->isRequired($config).'>'.$options['value'].'</textarea>';
+    return '<textarea '.$this->fieldOptions($options).' '.$this->isRequired($required,$config).'>'.$options['value'].'</textarea>';
   }
 
-  public function renderSelect($field,$options){
+  public function renderSelect($field,$options,$required){
     $config = $this->config['fields'][$field];
     if(array_key_exists('options', $config)){
       $options = $options + $config['options'];
@@ -110,7 +124,7 @@ class LeadCapture extends HqSdk{
       $options['selected']=null;
     }
 
-    return '<select '.$this->fieldOptions($options).' '.$this->isRequired($config).'>'.$this->selectOptions($config,$options['selected']).'</select>';
+    return '<select '.$this->fieldOptions($options).' '.$this->isRequired($required,$config).'>'.$this->selectOptions($config,$options['selected']).'</select>';
   }
 
   public function submitLead($data){
@@ -118,15 +132,15 @@ class LeadCapture extends HqSdk{
     return $this->post('LeadCapture',$this->formatLead($data));
   }
 
-  public function render($field,$options=array()){
+  public function render($field,$options=array(),$required=false){
     //TODO put exception handler here
     if(!array_key_exists($field, $this->config['fields'])) return '';
 
-    if(!array_key_exists('type', $this->config['fields'][$field])){
-      $render = $this->renderText($field,$options);
+    if(!array_key_exists('type', $this->config['fields'][$field]) || $this->config['fields'][$field]['type']=='text'){
+      $render = $this->renderText($field,$options,'text',$required);
     } else {
       $class = 'render'.ucfirst($this->config['fields'][$field]['type']);
-      $render = $this->$class($field,$options);
+      $render = $this->$class($field,$options,$required);
     }
 
     return $this->fields[$field] = $render;
