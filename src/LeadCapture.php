@@ -70,7 +70,11 @@ class LeadCapture extends HqSdk{
     if(gettype($config['reference'])=='array') return $this->generateOptions($config['reference']);
 
     if(array_key_exists('reference_type', $config)){
-      return $this->generateOptions($this->getReferences()->$config['reference']->$config['reference_type'],$selected);
+      try {
+        return $this->generateOptions($this->getReferences()->$config['reference']->$config['reference_type'],$selected);
+      } catch {
+        return null;
+      }
     }
 
     return $this->generateOptions($this->getReferences()->config['reference'],$selected);
