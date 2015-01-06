@@ -26,7 +26,7 @@ class LeadCapture extends HqSdk{
   }
 
   protected function isRequired($required,$config){
-    if($required==true || $config['required']==true){
+    if($required==true || (isset($config['required']) && $config['required']==true)){
       return 'required';
     }
     return null;
