@@ -245,7 +245,7 @@ return array(
         'placeholder'=>'University (Manual Input)'
       )
     ),
-    'InterestTerm'=>array(
+    'TermTypeId'=>array(
       'title'=>'Term of Interest',
       'required'=>false,
       'type'=>'select',
