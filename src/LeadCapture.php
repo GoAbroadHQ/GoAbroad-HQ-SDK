@@ -133,6 +133,9 @@ class LeadCapture extends HqSdk{
 
   public function submitLead($data){
     // return $this->formatLead($data);
+    if(!$data['TimeZoneId']){
+      $data['TimeZoneId']='Mountain Standard Time';
+    }
     return $this->post('LeadCapture',$this->formatLead($data));
   }
 

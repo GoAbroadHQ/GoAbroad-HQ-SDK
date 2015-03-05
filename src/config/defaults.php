@@ -148,7 +148,7 @@ return array(
       'title'=>'Time Zone',
       'required'=>true,
       'type'=>'select',
-      'default'=>'(UTC-07:00) Mountain Time (US & Canada)',
+      'default'=>'Mountain Standard Time',
       'reference'=>'TimeZones',
       'reference_type'=>'TimeZone'
     ),
