@@ -136,6 +136,9 @@ class LeadCapture extends HqSdk{
     if(!$data['TimeZoneId']){
       $data['TimeZoneId']='Mountain Standard Time';
     }
+    if(array_key_exists('Email', $data) && preg_match("/[+]/", $data['Email']) == false){
+      throw new \Exception('An email address cannot have a + in it. Please try again without the plus.');
+    }
     return $this->post('LeadCapture',$this->formatLead($data));
   }
 
