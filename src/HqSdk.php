@@ -56,7 +56,15 @@ abstract class HqSdk {
 
     // Open the file using the HTTP headers set above
     // 
-    $file = utf8_encode ( (string) file_get_contents($this->environment.'/'.ucwords($to).'?'.urldecode(http_build_query($get))) );
+    
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );  
+    $file = utf8_encode ( (string) file_get_contents($this->environment.'/'.ucwords($to).'?'.urldecode(http_build_query($get)), false, stream_context_create($arrContextOptions)) );
+
 
     $file = $this->toObject(TypeConverter::xmlToArray($file, TypeConverter::XML_MERGE));
     return $this->$to = $file;
