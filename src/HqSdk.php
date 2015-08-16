@@ -113,7 +113,6 @@ abstract class HqSdk {
       "Pragma: no-cache",
     );
     //set POST variables
-    $url = $this->environment.'/'.ucwords($to).'?'.urldecode(http_build_query($get));
 
     $fields_string = '';
 
@@ -121,30 +120,40 @@ abstract class HqSdk {
     foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
     $fields_string = rtrim($fields_string, '&');
 
-    //open connection
-    $ch = curl_init();
+    $curl = curl_init();
 
-    //set the url, number of POST vars, POST data
-    curl_setopt($ch,CURLOPT_URL, $url);
-    curl_setopt($ch,CURLOPT_POST, true);
-    curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->environment.'/'.ucwords($to).'?'.urldecode(http_build_query($get)),
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => $fields_string,
+      CURLOPT_SSL_VERIFYHOST => false,
+      CURLOPT_SSL_VERIFYPEER => false,
+      CURLOPT_HTTPHEADER => array(
+        "accept: text/xml",
+        "cache-control: no-cache",
+        "pragma: no-cache"
+      ),
+    ));
 
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    $result = curl_exec($curl);
+    $err = curl_error($curl);
 
-    //execute post
-    $result = curl_exec($ch);
+    curl_close($curl);
 
-    //close connection
-    curl_close($ch);
-
+    if ($err) {
+      throw new \Exception("cURL Error #:" . $err);
+    }
 
     // return $result;
 
     // Open the file using the HTTP headers set above
     // 
     $file = utf8_encode ( (string) $result );
-
     $file = $this->toObject(TypeConverter::xmlToArray($file, TypeConverter::XML_MERGE));
     
     if($file->GAHQResponses->TotalExceptions > 0){
