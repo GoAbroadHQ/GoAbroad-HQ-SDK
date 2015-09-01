@@ -114,11 +114,11 @@ abstract class HqSdk {
     );
     //set POST variables
 
-    $fields_string = '';
+    // $fields_string = '';
 
     //url-ify the data for the POST
-    foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-    $fields_string = rtrim($fields_string, '&');
+    // foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+    // $fields_string = rtrim($fields_string, '&');
 
     $curl = curl_init();
 
@@ -130,7 +130,7 @@ abstract class HqSdk {
       CURLOPT_TIMEOUT => 30,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => $fields_string,
+      CURLOPT_POSTFIELDS => http_build_query($fields),
       CURLOPT_SSL_VERIFYHOST => false,
       CURLOPT_SSL_VERIFYPEER => false,
       CURLOPT_HTTPHEADER => array(
