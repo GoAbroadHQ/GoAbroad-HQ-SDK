@@ -12,6 +12,10 @@ class LeadCapture extends HqSdk{
     $this->config = require(__DIR__.'/config/defaults.php');
   }
 
+  public function getFields(){
+    return $this->config;
+  }
+
   public function getReferences(){
     if(!isset($this->references)){
       $this->get('references');
