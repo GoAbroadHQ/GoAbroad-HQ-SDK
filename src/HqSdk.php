@@ -7,7 +7,7 @@ use GaHqSdk\Array2XML;
 abstract class HqSdk {
 
   const PROD_URL = 'https://api.goabroadhq.com/GoAbroadHQ.svc';
-  const DEV_URL = 'http://dev.api.goabroadhq.com/API/GoAbroadHQ.svc';
+  const DEV_URL = 'http://dev-api.goabroadhq.com/GoAbroadHQ.svc';
 
   /*
    * The Environment Url that is to be used for requests.
