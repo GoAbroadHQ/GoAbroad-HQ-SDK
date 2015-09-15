@@ -7,6 +7,7 @@ use GaHqSdk\Array2XML;
 abstract class HqSdk {
 
   const PROD_URL = 'https://api.goabroadhq.com/GoAbroadHQ.svc';
+  const DEV_URL = 'https://dev.goabroadhq.com/GoAbroadHQ.svc';
 
   /*
    * The Environment Url that is to be used for requests.
@@ -32,7 +33,7 @@ abstract class HqSdk {
   }
 
   protected function setEnv($env){
-    $this->environment = self::PROD_URL;
+    $this->environment = $env=='prod' ? self::PROD_URL : self::DEV_URL;
   }
 
   protected function toObject($data){
