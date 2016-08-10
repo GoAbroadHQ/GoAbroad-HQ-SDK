@@ -3,7 +3,7 @@
 ##Installation
 
 ```bash
-  composer insall sebmak/goabroadhq-sdk
+  composer require sebmak/goabroadhq-sdk
 ```
 ##Configuration
 
