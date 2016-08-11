@@ -156,8 +156,8 @@ abstract class HqSdk {
     // 
     $file = utf8_encode ( (string) $result );
     $file = $this->toObject(TypeConverter::xmlToArray($file, TypeConverter::XML_MERGE));
-    
-    if($file->GAHQResponses->TotalExceptions > 0){
+
+    if($file->GAHQResponses->GAHQResponse && $file->GAHQResponses->GAHQResponse->Type === 'Exception') {
       throw new \Exception(
           'There was an error submitting your request. Please check your data before trying again.',
           0,
